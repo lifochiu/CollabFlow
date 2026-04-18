@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { createTask } from "@/app/(main)/action";
 
 export default function Form() {
   const [title, setTitle] = useState("");
@@ -11,7 +12,7 @@ export default function Form() {
     if (title.trim() === "" && description.trim() === "") {
       alert("Please fill in all fields.");
     } else {
-      alert(`Title: ${title}\nDescription: ${description}`);
+      createTask(title, description);
       setTitle("");
       setDescription("");
     }
