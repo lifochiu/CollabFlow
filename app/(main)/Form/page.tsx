@@ -1,8 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import { createTask } from "@/app/(main)/action";
+import { useRouter } from "next/navigation";
 
 export default function Form() {
+  const router = useRouter();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -15,6 +17,7 @@ export default function Form() {
       createTask(title, description);
       setTitle("");
       setDescription("");
+      router.push("/board");
     }
   };
 

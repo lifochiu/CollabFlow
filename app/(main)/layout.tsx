@@ -4,6 +4,7 @@ import "../globals.css";
 import Header from "./_component/Header";
 import Navi from "./_component/navigate";
 import Footer from "./_component/footer";
+import { TaskProvider } from "./_component/taskContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,11 +27,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <Navi />
-      {children}
-      <Footer />
-    </div>
+    <TaskProvider>
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <Navi />
+        {children}
+        <Footer />
+      </div>
+    </TaskProvider>
   );
 }
