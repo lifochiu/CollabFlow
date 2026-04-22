@@ -3,7 +3,7 @@ import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 
-const firebaseConfig = {
+const realTimeDataBaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
@@ -13,7 +13,8 @@ const firebaseConfig = {
   databaseURL: "https://collabflow-71508-default-rtdb.firebaseio.com/",
 };
 
-const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+const app =
+  getApps().length > 0 ? getApp() : initializeApp(realTimeDataBaseConfig);
 const auth = getAuth(app);
 const rtdb = getDatabase(app);
 

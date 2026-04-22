@@ -37,6 +37,7 @@ export default function List() {
       {/* <Cards /> */}
       {todoTasks.map((task) => (
         <Cards
+          key={task.id}
           id={task.id}
           title={task.title}
           description={task.description}
@@ -49,6 +50,7 @@ export default function List() {
       ))}
       {inProgressTasks.map((task) => (
         <Cards
+          key={task.id}
           id={task.id}
           title={task.title}
           description={task.description}
@@ -61,6 +63,7 @@ export default function List() {
       ))}
       {doneTasks.map((task) => (
         <Cards
+          key={task.id}
           id={task.id}
           title={task.title}
           description={task.description}
