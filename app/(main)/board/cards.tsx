@@ -3,10 +3,15 @@ import LevelBadge from "../_component/levelBadge";
 import UserIcon from "../_component/user";
 import React, { useState } from "react";
 import StatusBadge from "../_component/statusBadge";
-import Desc from "../board/descriptionBox";
+import DescriptionBox from "../board/descriptionBox";
 import TitleBox from "../board/titleBox";
+import ParticipantMember from "../board/participantMember";
 type statusType = "To Do" | "In Progress" | "Done";
 type PriorityLevel = "High" | "Medium" | "Low";
+interface participants {
+  userName: string;
+  userColor: { backgroundColor: string };
+}
 interface CardProps {
   id: string;
   title: string;
@@ -14,7 +19,7 @@ interface CardProps {
   createUser: string;
   status: statusType;
   priority: PriorityLevel;
-  participants: string;
+  participants: participants[];
   userColor: { backgroundColor: string };
 }
 
@@ -38,21 +43,23 @@ export default function cards({
       >
         <p>{title}</p>
         <LevelBadge level={priority} id={id} />
-        <div className="flex flex-row items-center mt-2">
+        <div className="flex flex-row items-center justify-between mt-2">
           <UserIcon user={createUser} userColor={userColor} />
+          <ParticipantMember participants={participants} />
         </div>
       </div>
       {isOpen && (
+        //click outside to close
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm
           transition-opacity duration-300 animate-in fade-in"
-          onClick={() => setIsOpen(false)} // 點擊背景空白處關閉
+          onClick={() => setIsOpen(false)}
         >
-          {/* 視窗本體 */}
+          {/* window */}
           <div
-            className="bg-white p-8 rounded-xl shadow-2xl  w-[800px] h-[800px] m-4
+            className="bg-white p-8 rounded-xl shadow-2xl  w-200 h-200 m-4
             animate-in zoom-in-95 slide-in-from-bottom-2 duration-300 flex flex-col"
-            onClick={(e) => e.stopPropagation()} // 防止點擊視窗內部也觸發關閉
+            onClick={(e) => e.stopPropagation()} //prevent click inside the window from closing
           >
             <div className="flex justify-between items-start mb-4">
               <h2 className="text-2xl font-bold">
@@ -74,22 +81,28 @@ export default function cards({
                 <span className="text-sm text-gray-500">Priority: </span>
                 <LevelBadge level={priority} id={id} />
               </div>
-
               <div className="flex-1 overflow-y-auto">
                 <span className="text-sm text-gray-500 ">Description: </span>
-                <Desc description={description} id={id} />
+                <DescriptionBox
+                  description={description}
+                  id={id}
+                  createUser={createUser}
+                  participants={participants}
+                />
               </div>
-
+              {/* display creator */}
               <div className="pt-4 border-t flex items-center gap-3">
                 <span className="text-sm text-gray-500">Creator: </span>
                 <UserIcon user={createUser} userColor={userColor} />
-                {/* <span className="text-sm font-medium">{createUser}</span> */}
               </div>
-              {/* <div className="pt-4 border-t flex items-center gap-3">
-                <span className="text-sm text-gray-500">Participants: </span>
-                
-                <span className="text-sm font-medium">{participants}</span>
-              </div> */}
+              {/* participants */}
+              <div className="pt-4 border-t flex items-center gap-3">
+                <span className="text-sm text-gray-500 mr-3">
+                  Participants:{" "}
+                </span>
+
+                <ParticipantMember participants={participants} />
+              </div>
             </div>
           </div>
         </div>

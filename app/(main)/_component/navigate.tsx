@@ -6,9 +6,6 @@ export default function Navigate() {
       <Link href="../Form">Create Task</Link>
       <Link href="../board/">Board</Link>
       <Link href="../list/">List</Link>
-
-      {/* <Link href="../timeline/">Timeline</Link> */}
-
       <Link href="../login/">Log Out</Link>
     </div>
   );

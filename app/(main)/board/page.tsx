@@ -3,14 +3,12 @@ import React, { useState, useEffect } from "react";
 import Card from "@/app/(main)/board/cards";
 import { rtdb } from "@/app/backend/firebase";
 import { ref, onValue, set } from "firebase/database";
-import { useTasks } from "../_component/taskContext"; // 使用我們的 Hook
+import { useTasks } from "../_component/taskProvider";
 
 export default function Board() {
-  const { todoTasks, inProgressTasks, doneTasks, loading } = useTasks(); // 從 Context 中獲取任務資料
-
+  const { todoTasks, inProgressTasks, doneTasks } = useTasks();
   return (
     <div className="flex flex-row justify-center mt-10 gap-x-8">
-      {/* <button onClick={test}>test</button> */}
       <div>
         <p className="mb-5 font-bold text-xl text-center">To Do</p>
         {todoTasks.map((task) => (

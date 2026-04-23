@@ -31,9 +31,6 @@ async function LoginAction(userName: string) {
       if (userNameSnapshot.exists()) {
         const username = await getUserName(userNameSnapshot.val());
         globalUserColor = await getUserColor(userNameSnapshot.val());
-
-        console.log("globalUserColor in getGlobalUserColor:", globalUserColor);
-        console.log("取得的用戶名為:", username);
       } else {
         //no record, create new user
         const usersListRef = ref(rtdb, "users");

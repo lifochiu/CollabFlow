@@ -4,7 +4,7 @@ import "../globals.css";
 import Header from "./_component/Header";
 import Navi from "./_component/navigate";
 import Footer from "./_component/footer";
-import { TaskProvider } from "./_component/taskContext";
+import { TaskProvider } from "./_component/taskProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

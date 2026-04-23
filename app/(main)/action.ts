@@ -31,27 +31,4 @@ async function createTask(title: string, description: string) {
   });
 }
 
-async function getTasksInfo() {}
-// async function getUserName() {
-//   const dbRef = ref(rtdb);
-//   try {
-//     const snapshot = await get(child(dbRef, `users`));
-//     const usersRef = ref(rtdb, "users");
-//     if (snapshot.exists()) {
-//       const userNameQuery = query(
-//         usersRef,
-//         orderByChild("userName"),
-//         equalTo("userName"),
-//       );
-//       const userNameSnapshot = await get(userNameQuery);
-
-//       // const username = await getUserName(userNameSnapshot.val());
-//     } else {
-//       console.log("No data available");
-//     }
-//   } catch (error) {
-//     console.error("Error fetching data: ", error);
-//   }
-// }
-
 export { createTask };

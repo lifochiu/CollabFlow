@@ -1,16 +1,28 @@
 import React, { useState } from "react";
 import { rtdb } from "@/app/backend/firebase";
 import { ref, update } from "firebase/database";
+import {
+  getGlobalUserName,
+  getGlobalUserColor,
+} from "@/app/(auth)/login/action";
+interface participants {
+  userName: string;
+  userColor: { backgroundColor: string };
+}
 interface DescriptionBoxProps {
   description: string;
   id: string;
+  createUser: string;
+  participants: participants[];
 }
 export default function DescriptionBox({
   description,
   id,
+  createUser,
+  participants,
 }: DescriptionBoxProps) {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [getParticipants, setParticipants] = useState([]);
   const [newDescription, setNewDescription] = useState("");
 
   const handleUpdate = async (newDesc: string) => {
@@ -20,6 +32,17 @@ export default function DescriptionBox({
       await update(taskRef, {
         description: newDesc,
       });
+      if ((await getGlobalUserName()) != createUser) {
+        await update(taskRef, {
+          participants: [
+            ...participants,
+            {
+              userName: await getGlobalUserName(),
+              userColor: await getGlobalUserColor(),
+            },
+          ],
+        });
+      }
       setIsOpen(false);
 
       console.log("Description updated successfully!");
@@ -28,6 +51,7 @@ export default function DescriptionBox({
       alert("Update failed. Please try again.");
     }
   };
+
   return (
     <>
       <div className="cursor-pointer" onClick={() => setIsOpen(true)}>
@@ -37,13 +61,12 @@ export default function DescriptionBox({
         <div
           className="fixed inset-0 z-60 flex items-center justify-center bg-black/50 backdrop-blur-sm
           transition-opacity duration-300 animate-in fade-in"
-          onClick={() => setIsOpen(false)} // 點擊背景空白處關閉
+          onClick={() => setIsOpen(false)}
         >
-          {/* 視窗本體 */}
           <div
             className="bg-white p-8 rounded-xl shadow-2xl  w-[400px] h-[400px] m-4
             animate-in zoom-in-95 slide-in-from-bottom-2 duration-300 flex flex-col"
-            onClick={(e) => e.stopPropagation()} // 防止點擊視窗內部也觸發關閉
+            onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-start mb-4">
               <h2 className="text-2xl font-bold">Change Description</h2>

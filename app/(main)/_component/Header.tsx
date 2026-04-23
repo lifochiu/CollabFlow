@@ -2,6 +2,7 @@ import {
   getGlobalUserName,
   getGlobalUserColor,
 } from "@/app/(auth)/login/action";
+
 export default async function Header() {
   return (
     <div className="bg-blue-500 text-white p-8 flex justify-between">

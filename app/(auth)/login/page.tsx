@@ -6,19 +6,15 @@ import { LoginAction } from "./action";
 export default function Login() {
   const router = useRouter();
   const [userName, setUserName] = useState("");
-  // const [password, setPassword] = useState("");
   const [login, setLogin] = useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     // Handle form submission logic here
     e.preventDefault();
     if (userName.trim() === "") {
-      // || password.trim() === ""
       alert("Please fill in all fields.");
     } else {
-      // alert(`Username: ${userName}\nPassword: ${password}`);
-      await LoginAction(userName); // , password
+      await LoginAction(userName);
       setUserName("");
-      // setPassword("");
       router.push("/board");
     }
   };
@@ -37,16 +33,6 @@ export default function Login() {
               className="w-full border border-gray-300 rounded p-2"
               placeholder="Enter username"
             />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Password</label>
-            {/* <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-gray-300 rounded p-2"
-              placeholder="Enter password"
-            /> */}
           </div>
           <button
             type="submit"
